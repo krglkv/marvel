@@ -9,6 +9,14 @@ const Search = () => {
     const [labelView, setLabelView] = useState(null);
     const [charFound, setCharFound] = useState(null);
     const {getChar} = useMarvelService();
+    const [charName, setCharName] = useState(null);
+
+    useEffect(() => {
+        if (!charName){
+            setLabelView(null)
+            setCharFound(null)
+        }
+    }, [charName])
 
     const onRequest = (char) => {
         getChar(char).then(function() {
@@ -40,7 +48,8 @@ const Search = () => {
                             id="name"
                             name="name"
                             type="text"
-                        />   
+                            setCharName={setCharName(formik.values.name)}
+                        />  
                         {labelView ? (<div className="search__request" style={{'color': charFound ? 'black' : null}}>{labelView}</div>) : null}
                         <ErrorMes className="search__response" name='name' component='div'/>
                     </div>
