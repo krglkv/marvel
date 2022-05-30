@@ -1,5 +1,4 @@
 import { useParams, Link } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
 
 import { useState, useEffect } from "react/cjs/react.development";
 
@@ -9,17 +8,17 @@ import useMarvelService from '../../services/MarvelService';
 import './singleComicPage.scss';
 
 const SingleCharPage = () => {
-    const {charName} = useParams();
+    const {charId} = useParams();
     const [char, setChar] = useState(null);
-    const {loading, error, getChar, clearError} = useMarvelService();
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
         updateChar();
-    }, [charName])
+    }, [charId])
     
     const updateChar = () => {
         clearError();
-        getChar(charName)
+        getCharacter(charId)
             .then(onCharLoaded)
     }
 
