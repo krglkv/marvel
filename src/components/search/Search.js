@@ -8,16 +8,14 @@ import useMarvelService from '../../services/MarvelService';
 
 const Search = () => {
     const [char, setChar] = useState(null);
+    const [inputValue, setInputValue] = useState(null);
     const {getCharByName, clearError, error, loading} = useMarvelService();
 
-    // useEffect(() => {
-    //     setLabelView(null)
-    //     setChar(null)
-    // }, [inputName])
-
-    // useEffect(() => {
-    //     console.log(char)
-    // }, [char])
+    useEffect(() => {
+        if (inputValue !== char) {
+            setChar(null);
+        }
+    }, [inputValue])
 
     const onCharLoaded = (char) => {
         setChar(char)
@@ -60,6 +58,7 @@ const Search = () => {
                                 id="name"
                                 name="name"
                                 type="text"
+                                setInputValue={setInputValue(formik.values.name)}
                             />
                             <button className="button button__main" type="submit" disabled={loading}>
                                 <div className="inner">find</div>
